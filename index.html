@@ -60,13 +60,10 @@
 			</div><!-- /header -->
 
 			<div data-role="content">
-				<div id="post">
-					<ul data-role="listview">
-
-					</ul>
+				<div id="tweet">
+		
 				</div>
 			</div><!-- /content -->
-	
 	
 			<div data-role="footer">
 			<a href="#Main" data-role="button">Home</a>
@@ -79,7 +76,8 @@
 				$.each(data, function (i, value) {
 					$('#tweets').children('ul').append('<div id='+i+'><a href="javascript:\
 					trasitionUser('+i+')" data-role="button">' 
-					+ value.user.name+'</a></br>'+value.text+'</br></div>').listview('refresh');
+					+ value.user.name+'</a></br><a href="javascript:\
+					trasitionTweetPage('+i+')" data-role="button">'+value.text+'</a></br></div>').listview('refresh');
 					<!-- Insert the from where is the replies-->
 				});
 			});
@@ -96,5 +94,19 @@
 				$.mobile.changePage('#user');
 			}
 		</script>
+        
+        
+        <script type="text/javascript">
+            function trasitionTweetPage(i) {
+                $.getJSON('favs.json', function(data) {
+                    //alert(data[i].user.name);
+                    $('#tweet').replaceWith('<div id="tweetDiv">'+data[i].text+'</br></div>').listview('refresh');
+                });
+                
+                $.mobile.changePage('#tweetPage');
+            }
+        </script>
+
+        
 	</body>
 </html>

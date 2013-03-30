@@ -32,7 +32,7 @@
 		</div><!-- /Main page -->
 
 		<!-- User View page -->
-		<div data-role="page" id="user">
+		<div data-role="dialog" id="user">
 
 			<div data-role="header">
 				<h1>User page</h1>
@@ -53,7 +53,7 @@
 
 
 		<!-- Tweet View page -->
-		<div data-role="page" id="tweetPage">
+		<div data-role="dialog" id="tweetPage">
 
 			<div data-role="header">
 				<h1>Tweet page</h1>
@@ -74,18 +74,22 @@
 		<script type="text/javascript">
 			$.getJSON('favs.json', function(data) {
 				$.each(data, function (i, value) {
+					var text = value.text.replace(/\s@{1}(\w+)(\s)/g, ' <a href="javascript:findUser(/$1/)">@$1</a>$2');
+
+					text = text.replace(/\s#{1}(\w+)(\s)/g, ' <a href="javascript:\
+					findHashTag($1)">#$1</a>$2');			
+
+					text = text.replace(/\s(http:\/\/)([a-zA-z0-9.\/]+)/g, ' <a href="$1$2" target="_blank">$1$2</a> ');
+
 					$('#tweets').children('ul').append('<div id='+i+'><a href="javascript:\
-					trasitionUser('+i+')" data-role="button">' 
-					+ value.user.name+'</a></br><a href="javascript:\
-					trasitionTweetPage('+i+')" data-role="button">'+value.text+'</a></br></div>').listview('refresh');
-					<!-- Insert the from where is the replies-->
+					transitionUser('+i+')" data-role="button">' 
+					+ value.user.name+'</a></br>'+text+'</br></div>').listview('refresh');
 				});
 			});
 		</script>
 
 		<script type="text/javascript">
-			function trasitionUser(i) {
-
+			function transitionUser(i) {
 				$.getJSON('favs.json', function(data) {
 					//alert(data[i].user.name);
 					$('#usr').replaceWith('<div id="usr">'+data[i].user.name+'</br></div>').listview('refresh');
@@ -97,13 +101,47 @@
         
         
         <script type="text/javascript">
-            function trasitionTweetPage(i) {
+            function transitionTweetPage(i) {
                 $.getJSON('favs.json', function(data) {
                     //alert(data[i].user.name);
-                    $('#tweet').replaceWith('<div id="tweetDiv">'+data[i].text+'</br></div>').listview('refresh');
+                    $('#tweet').replaceWith('<div id="tweetDiv"><a href="javascript:\
+					transitionUser('+i+')" data-role="button">' 
+					+ data[i].user.name+'</a></br>'+data[i].text+'</br></div>').listview('refresh');
                 });
-                
                 $.mobile.changePage('#tweetPage');
+            }
+        </script>
+
+        <script type="text/javascript">
+            function findUser(user) {
+				var findUser = 0;
+                $.getJSON('favs.json', function(data) {
+					//Find the user index inside the file
+					$.each(data, function (i, value) {
+						var str = '/'+value.user.name.replace(/\s+/, "").toLowerCase()+'/';
+						if(str == user) {
+							findUser = 1;
+							transitionUser(i);
+							return false;
+						}
+					});
+					if(findUser == 0) {
+						alert("Information not available");	
+					}
+                });
+
+            }
+        </script>
+
+
+        <script type="text/javascript">
+            function findHashTag(i) {
+				alert("Entrou2!!!!");
+  //              $.getJSON('favs.json', function(data) {
+					//Find the user index inside the file
+//                });
+
+				transitionUser(1);
             }
         </script>
 

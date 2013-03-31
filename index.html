@@ -3,9 +3,12 @@
      * Loading images (Luis)
      * CSS (Ystallonne)
      * Documentation (sorry, or I code or I comment! =P )
-     * And there are more 2 mistakes in the code, Press Ctrl+F and look for the *** to see where are the mistakes! 
      
-     Good Luck Guys! =) -->
+     Good Luck Guys! =) 
+     
+     PS: Line Wrap aew plz
+     PS2: Insert a space before and after a + sign. It makes way better to read the code
+     -->
 
 <html>
 	<head>
@@ -169,10 +172,12 @@
             function transitionTweetPage(i) {
                 $.getJSON('favs.json', function(data) {
 					var text = highlighting(data[i].text);
-                    var str = '<div id="tweetDiv"><a href="javascript:\
-					transitionUser('+i+')" data-role="button">'+ data[i].user.name+'</a></br>'+text+'</br></div>';	
+
+                    var str = '<div id="tweetDiv"><a href="javascript:transitionUser(' + i + ')" \
+					data-role="button">'+ data[i].user.name+'</a></br>'+text+'</br></div>';	
 
 					var index = findRetweet(data[i].in_reply_to_user_id);
+					alert('Valor final da funcao: ' +index);
 					if(index != -1) {
 						str = str + '</br><a href="javascript:transitionUser('+index+')">'+data[index].user.name+'</a>';				
 					}					
@@ -188,29 +193,21 @@
 				var id = -1;
 				if(status_id == null)
 					return id;
-
-// json parse does not work because it is a file not a var
-//				var look = JSON.parse(favs.json);
-//				alert(look.length);
-//				for(var i=0; i < look.length; i++) {
-//					alert(look[i].id +' -- '+ status_id);
-//					if(look[i].id == status_id)
-//						return i;
-//				}
 				
-//				$.getJSON('favs.json', function(data) {
-//					//Find the tweet id
-//					$.each(data, function (i, value) {
-//						if(value.id == status_id){
-//							id = i;
-//							return false;
-//						}
-//					});
-//					alert(id);
-//				});
-//				alert(id);
-				// It does not return the right value ***
-				// Problema maldito dos returns! ¬¬'
+				$.getJSON('favs.json', function(data) {
+					//Find the tweet id
+					$.each(data, function (i, value) {
+						if(value.user.id == status_id){
+							id = i;
+							return false;
+						}
+					});
+					alert('First ' + id);
+					return id;
+				});
+				// It is returning this one before than the one inside! ***
+				alert('Second ' + id);
+				return id;
 			}
 		</script>
 

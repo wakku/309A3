@@ -13,7 +13,7 @@
 	<body>
 
 		<!-- Main View page - general information -->
-		<div data-role="page" id="Main" class="demo-page">
+		<div data-role="page" id="Main">
 
 			<div data-role="header">
 				<h1>Tweets List</h1>
@@ -23,6 +23,40 @@
 				<div id="tweets">
 					<ul data-role="listview" data-theme="tw">
 	
+					</ul>
+				</div>
+			</div><!-- /content -->
+
+			<div data-role="footer">
+			</div><!-- /footer -->
+		</div><!-- /Main page -->
+		<div data-role="page" id="MainPrev">
+
+			<div data-role="header">
+				<h1>Tweets List</h1>
+			</div><!-- /header -->
+
+			<div data-role="content">
+				<div id="tweets">
+					<ul data-role="listview" data-theme="tw">
+						Prev Page.
+					</ul>
+				</div>
+			</div><!-- /content -->
+
+			<div data-role="footer">
+			</div><!-- /footer -->
+		</div><!-- /Main page -->
+		<div data-role="page" id="MainNext">
+
+			<div data-role="header">
+				<h1>Tweets List</h1>
+			</div><!-- /header -->
+
+			<div data-role="content">
+				<div id="tweets">
+					<ul data-role="listview" data-theme="tw">
+						Next Page.
 					</ul>
 				</div>
 			</div><!-- /content -->
@@ -187,17 +221,24 @@
             }
         </script>
 
-		<script type="text/javascript">
 		
-			$(".demo-page").on( "pageinit", "[data-role='page'].demo-page", function() {
-			alert("oi");
+		<script type="text/javascript">
+		// Set the action for Swipe
+			
+			// When the page load
+			$("#Main").on( "pageinit", function() {
+				// Get page id
 				var page = "#" + $( this ).attr( "id" );
-					// Prefetch the next page
-					$.mobile.loadPage( '#user' );
-					// Navigate to next page on swipe left
-					$(".demo-page").on( "swipeleft", page, function() {
-						$.mobile.changePage( '#user', { transition: "slide" });
-					});
+				// Prefetch the next page
+				$.mobile.loadPage( '#user' );
+				// Navigate to next page on swipe left
+				$("#Main").on( "swipeleft", '#tweets', function() {
+					$.mobile.changePage( '#MainNext', { transition: "slide" });
+				});
+				// Navigate to prev page on swipe right
+				$("#Main").on( "swiperight", '#tweets', function() {
+					$.mobile.changePage( '#MainPrev', { transition: "slide", reverse: true });
+				});
 			
 			});
 		

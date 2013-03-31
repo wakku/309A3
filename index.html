@@ -1,3 +1,12 @@
+<!-- MISSING:
+	 * Pagination (Fernando)
+     * Loading images (Luis)
+     * CSS (Ystallonne)
+     * Documentation (sorry, or I code or I comment! =P )
+     * And there are more 2 mistakes in the code, Press Ctrl+F and look for the *** to see where are the mistakes! 
+     
+     Good Luck Guys! =) -->
+
 <html>
 	<head>
 
@@ -100,27 +109,22 @@
 		<script type="text/javascript">
 			$.getJSON('favs.json', function(data) {
 				$.each(data, function (i, value) {
-					var text = value.text.replace(/\s@{1}(\w+)(\s)/g, ' <a href="javascript:findUser(/$1/)">@$1</a>$2');
-
-					text = text.replace(/\s#{1}(\w+)(\s)/g, ' <a href="javascript:\
-					findHashTag(/$1/)">#$1</a>$2');			
-
-					text = text.replace(/\s(http:\/\/)([a-zA-z0-9.\/]+)/g, ' <a href="$1$2" target="_blank">$1$2</a> ');
+					var text = highlighting(value.text);
 
 					$('#tweets').children('ul').append('<div id='+i+'><a href="javascript:\
-					transitionUser('+i+')">' 
-					+ value.user.name+'</a></br>'+text+'</br></div>').listview('refresh');
+					transitionUser('+i+')">' + value.user.name+'</a></br><a href="javascript:\
+					transitionTweetPage('+i+')">tweet-page</a></br>'+text+'</br></div>').listview('refresh');
 				});
 			});
 		</script>
 
+
+
 		<script type="text/javascript">
 			function transitionUser(i) {
 				$.getJSON('favs.json', function(data) {
-					//alert(data[i].user.name);
 					$('#usr').replaceWith('<div id="usr">'+data[i].user.name+'</br></div>').listview('refresh');
 				});
-		
 				$.mobile.changePage('#user');
 			}
 		</script>
@@ -129,14 +133,54 @@
         <script type="text/javascript">
             function transitionTweetPage(i) {
                 $.getJSON('favs.json', function(data) {
-                    //alert(data[i].user.name);
-                    $('#tweet').replaceWith('<div id="tweetDiv"><a href="javascript:\
-					transitionUser('+i+')" data-role="button">' 
-					+ data[i].user.name+'</a></br>'+data[i].text+'</br></div>').listview('refresh');
+					var text = highlighting(data[i].text);
+                    var str = '<div id="tweetDiv"><a href="javascript:\
+					transitionUser('+i+')" data-role="button">'+ data[i].user.name+'</a></br>'+text+'</br></div>';	
+
+					str = str + findRetweet(data[i].in_reply_to_status_id);
+//					if(index != -1) {
+//						str = str + '</br><a href="javascript:transitionUser('+index+')">'+data[index].user.name+'</a></br><a href="javascript:transitionTweetPage('+index+')">'+highlighting(data[index].text)+'</a>';				
+//					}
+					// Problem going back to home, if you close the window, it doesnt come back to the pop-up before *** It is not ecxatly a problem, it is just because youare loading the same page with a new content, however, because it is a retweet it is open the same text, so I think it is ok to go back to home.
+					
+					$('#tweet').html(str);
                 });
                 $.mobile.changePage('#tweetPage');
             }
         </script>
+        
+        
+        <script type="text/javascript">
+            function findRetweet(status_id) {
+				var id = -1;
+				if(status_id == null)
+					return id;
+
+// json parse does not work because it is a file not a var
+//				var look = JSON.parse(favs.json);
+//				alert(look.length);
+//				for(var i=0; i < look.length; i++) {
+//					alert(look[i].id +' -- '+ status_id);
+//					if(look[i].id == status_id)
+//						return i;
+//				}
+				
+//				$.getJSON('favs.json', function(data) {
+//					//Find the tweet id
+//					$.each(data, function (i, value) {
+//						if(value.id == status_id){
+//							id = i;
+//							return false;
+//						}
+//					});
+//					alert(id);
+//				});
+//				alert(id);
+				// It does not return the right value ***
+				// Problema maldito dos returns! ¬¬'
+			}
+		</script>
+
 
         <script type="text/javascript">
             function findUser(user) {
@@ -166,13 +210,7 @@
 					$.each(data, function (i, value) {
 						//Find the hash tag in all tweets text
 						if(hash.test(value.text)) {
-						var text = value.text.replace(/\s@{1}(\w+)(\s)/g, ' <a href="javascript:findUser(/$1/)">@$1</a>$2');
-
-						text = text.replace(/\s#{1}(\w+)(\s)/g, ' <a href="javascript:\
-							findHashTag(/$1/)">#$1</a>$2');			
-	
-						text = text.replace(/\s(http:\/\/)([a-zA-z0-9.\/]+)/g, ' <a href="$1$2" target="_blank">$1$2</a> ');
-
+							var text = highlighting(value.text);
 							
 							$('#hashTag').children('ul').append('<div id='+i+'>' 
 								+ value.user.name+'</a></br>'+text+'</br></div>').listview('refresh');
@@ -185,6 +223,20 @@
 				
             }
         </script>
+        
+        
+        <script  type="text/javascript">
+            function highlighting(text) { 
+				text = text.replace(/\s@{1}(\w+)(\s)/g, ' <a href="javascript:findUser(/$1/)">@$1</a>$2');
+
+				text = text.replace(/\s#{1}(\w+)(\s)/g, ' <a href="javascript:\
+							findHashTag(/$1/)">#$1</a>$2');			
+	
+				text = text.replace(/\s(http:\/\/)([a-zA-z0-9.\/]+)/g, ' <a href="$1$2" target="_blank">$1$2</a> ');
+
+				return text;
+			}
+		</script>
 
 
         

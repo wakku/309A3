@@ -71,18 +71,44 @@
 	
 		</div><!-- /Tweet Page -->
 
+
+		<!-- Hash Tag Page -->
+		<div data-role="page" id="hashTagPage">
+
+			<div data-role="header">
+				<h1>Tweets List</h1>
+			</div><!-- /header -->
+
+			<div data-role="content">
+				<div id="hashTag">
+					<ul data-role="listview" data-theme="tw">
+	
+					</ul>
+				</div>
+			</div><!-- /content -->
+
+			<div data-role="footer">
+				<a href="#Main" data-role="button">Home</a>
+			</div><!-- /footer -->
+            
+		</div><!-- /Hash Tag page -->
+
+
+
+
+
 		<script type="text/javascript">
 			$.getJSON('favs.json', function(data) {
 				$.each(data, function (i, value) {
 					var text = value.text.replace(/\s@{1}(\w+)(\s)/g, ' <a href="javascript:findUser(/$1/)">@$1</a>$2');
 
 					text = text.replace(/\s#{1}(\w+)(\s)/g, ' <a href="javascript:\
-					findHashTag($1)">#$1</a>$2');			
+					findHashTag(/$1/)">#$1</a>$2');			
 
 					text = text.replace(/\s(http:\/\/)([a-zA-z0-9.\/]+)/g, ' <a href="$1$2" target="_blank">$1$2</a> ');
 
 					$('#tweets').children('ul').append('<div id='+i+'><a href="javascript:\
-					transitionUser('+i+')" data-role="button">' 
+					transitionUser('+i+')">' 
 					+ value.user.name+'</a></br>'+text+'</br></div>').listview('refresh');
 				});
 			});
@@ -135,15 +161,31 @@
 
 
         <script type="text/javascript">
-            function findHashTag(i) {
-				alert("Entrou2!!!!");
-  //              $.getJSON('favs.json', function(data) {
-					//Find the user index inside the file
-//                });
+            function findHashTag(hash) { 
+				$.getJSON('favs.json', function(data) {
+					$.each(data, function (i, value) {
+						//Find the hash tag in all tweets text
+						if(hash.test(value.text)) {
+						var text = value.text.replace(/\s@{1}(\w+)(\s)/g, ' <a href="javascript:findUser(/$1/)">@$1</a>$2');
 
-				transitionUser(1);
+						text = text.replace(/\s#{1}(\w+)(\s)/g, ' <a href="javascript:\
+							findHashTag(/$1/)">#$1</a>$2');			
+	
+						text = text.replace(/\s(http:\/\/)([a-zA-z0-9.\/]+)/g, ' <a href="$1$2" target="_blank">$1$2</a> ');
+
+							
+							$('#hashTag').children('ul').append('<div id='+i+'>' 
+								+ value.user.name+'</a></br>'+text+'</br></div>').listview('refresh');
+						}
+					});
+                });
+				$('#hashTag').children('ul').empty();
+				// Do the transition to the tweet page
+                $.mobile.changePage('#hashTagPage');
+				
             }
         </script>
+
 
         
 	</body>

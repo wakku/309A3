@@ -13,7 +13,7 @@
 	<body>
 
 		<!-- Main View page - general information -->
-		<div data-role="page" id="Main">
+		<div data-role="page" id="Main" class="demo-page">
 
 			<div data-role="header">
 				<h1>Tweets List</h1>
@@ -118,7 +118,8 @@
 			function transitionUser(i) {
 				$.getJSON('favs.json', function(data) {
 					//alert(data[i].user.name);
-					$('#usr').replaceWith('<div id="usr">'+data[i].user.name+'</br></div>').listview('refresh');
+					$('#usr').replaceWith('<div id="usr"><b>'+data[i].user.name+'</b></br>' + 
+					data[i].user.description + '</div>').listview('refresh');
 				});
 		
 				$.mobile.changePage('#user');
@@ -140,18 +141,18 @@
 
         <script type="text/javascript">
             function findUser(user) {
-				var findUser = 0;
+				var userFound = false;
                 $.getJSON('favs.json', function(data) {
 					//Find the user index inside the file
 					$.each(data, function (i, value) {
 						var str = '/'+value.user.name.replace(/\s+/, "").toLowerCase()+'/';
 						if(str == user) {
-							findUser = 1;
+							userFound = true;
 							transitionUser(i);
 							return false;
 						}
 					});
-					if(findUser == 0) {
+					if(userFound == false) {
 						alert("Information not available");	
 					}
                 });
@@ -186,7 +187,21 @@
             }
         </script>
 
-
+		<script type="text/javascript">
+		
+			$(".demo-page").on( "pageinit", "[data-role='page'].demo-page", function() {
+			alert("oi");
+				var page = "#" + $( this ).attr( "id" );
+					// Prefetch the next page
+					$.mobile.loadPage( '#user' );
+					// Navigate to next page on swipe left
+					$(".demo-page").on( "swipeleft", page, function() {
+						$.mobile.changePage( '#user', { transition: "slide" });
+					});
+			
+			});
+		
+		</script>
         
 	</body>
 </html>

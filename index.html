@@ -239,6 +239,13 @@
 				$("#Main").on( "swiperight", '#tweets', function() {
 					$.mobile.changePage( '#MainPrev', { transition: "slide", reverse: true });
 				});
+				
+				$("#MainNext").on( "swiperight", '#tweets', function() {
+					$.mobile.changePage( '#Main', { transition: "slide", reverse: true });
+				});
+				$("#MainPrev").on( "swipeleft", '#tweets', function() {
+					$.mobile.changePage( '#Main', { transition: "slide" });
+				});
 			
 			});
 		

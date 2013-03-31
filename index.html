@@ -194,7 +194,7 @@
 				// Prefetch the next page
 				$.mobile.loadPage( '#user' );
 				// Navigate to next page on swipe left
-				$("#Main").on( "swipeleft", page, function() {
+				$("#Main").on( "swipeleft", '#tweets', function() {
 					$.mobile.changePage( '#user', { transition: "slide" });
 				});
 			

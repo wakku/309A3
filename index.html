@@ -39,6 +39,40 @@
 			<div data-role="footer">
 			</div><!-- /footer -->
 		</div><!-- /Main page -->
+		<div data-role="page" id="MainPrev">
+
+			<div data-role="header">
+				<h1>Tweets List</h1>
+			</div><!-- /header -->
+
+			<div data-role="content">
+				<div id="tweets">
+					<ul data-role="listview" data-theme="tw">
+						Prev Page.
+					</ul>
+				</div>
+			</div><!-- /content -->
+
+			<div data-role="footer">
+			</div><!-- /footer -->
+		</div><!-- /Main page -->
+		<div data-role="page" id="MainNext">
+
+			<div data-role="header">
+				<h1>Tweets List</h1>
+			</div><!-- /header -->
+
+			<div data-role="content">
+				<div id="tweets">
+					<ul data-role="listview" data-theme="tw">
+						Next Page.
+					</ul>
+				</div>
+			</div><!-- /content -->
+
+			<div data-role="footer">
+			</div><!-- /footer -->
+		</div><!-- /Main page -->
 
 		<!-- User View page -->
 		<div data-role="dialog" id="user">
@@ -123,7 +157,13 @@
 		<script type="text/javascript">
 			function transitionUser(i) {
 				$.getJSON('favs.json', function(data) {
+<<<<<<< HEAD
 					$('#usr').replaceWith('<div id="usr">'+data[i].user.name+'</br></div>').listview('refresh');
+=======
+					//alert(data[i].user.name);
+					$('#usr').replaceWith('<div id="usr"><b>'+data[i].user.name+'</b></br>' + 
+					data[i].user.description + '</div>').listview('refresh');
+>>>>>>> df5080380e64c77cd8369bad977f86c5602366ab
 				});
 				$.mobile.changePage('#user');
 			}
@@ -184,18 +224,18 @@
 
         <script type="text/javascript">
             function findUser(user) {
-				var findUser = 0;
+				var userFound = false;
                 $.getJSON('favs.json', function(data) {
 					//Find the user index inside the file
 					$.each(data, function (i, value) {
 						var str = '/'+value.user.name.replace(/\s+/, "").toLowerCase()+'/';
 						if(str == user) {
-							findUser = 1;
+							userFound = true;
 							transitionUser(i);
 							return false;
 						}
 					});
-					if(findUser == 0) {
+					if(userFound == false) {
 						alert("Information not available");	
 					}
                 });
@@ -238,7 +278,35 @@
 			}
 		</script>
 
-
+		
+		<script type="text/javascript">
+		// Set the action for Swipe
+			
+			// When the page load
+			$("#Main").on( "pageinit", function() {
+				// Get page id
+				var page = "#" + $( this ).attr( "id" );
+				// Prefetch the next page
+				$.mobile.loadPage( '#user' );
+				// Navigate to next page on swipe left
+				$("#Main").on( "swipeleft", '#tweets', function() {
+					$.mobile.changePage( '#MainNext', { transition: "slide" });
+				});
+				// Navigate to prev page on swipe right
+				$("#Main").on( "swiperight", '#tweets', function() {
+					$.mobile.changePage( '#MainPrev', { transition: "slide", reverse: true });
+				});
+				
+				$("#MainNext").on( "swiperight", '#tweets', function() {
+					$.mobile.changePage( '#Main', { transition: "slide", reverse: true });
+				});
+				$("#MainPrev").on( "swipeleft", '#tweets', function() {
+					$.mobile.changePage( '#Main', { transition: "slide" });
+				});
+			
+			});
+		
+		</script>
         
 	</body>
 </html>

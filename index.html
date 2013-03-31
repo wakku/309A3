@@ -157,13 +157,8 @@
 		<script type="text/javascript">
 			function transitionUser(i) {
 				$.getJSON('favs.json', function(data) {
-<<<<<<< HEAD
-					$('#usr').replaceWith('<div id="usr">'+data[i].user.name+'</br></div>').listview('refresh');
-=======
-					//alert(data[i].user.name);
 					$('#usr').replaceWith('<div id="usr"><b>'+data[i].user.name+'</b></br>' + 
 					data[i].user.description + '</div>').listview('refresh');
->>>>>>> df5080380e64c77cd8369bad977f86c5602366ab
 				});
 				$.mobile.changePage('#user');
 			}
@@ -177,12 +172,10 @@
                     var str = '<div id="tweetDiv"><a href="javascript:\
 					transitionUser('+i+')" data-role="button">'+ data[i].user.name+'</a></br>'+text+'</br></div>';	
 
-					str = str + findRetweet(data[i].in_reply_to_status_id);
-//					if(index != -1) {
-//						str = str + '</br><a href="javascript:transitionUser('+index+')">'+data[index].user.name+'</a></br><a href="javascript:transitionTweetPage('+index+')">'+highlighting(data[index].text)+'</a>';				
-//					}
-					// Problem going back to home, if you close the window, it doesnt come back to the pop-up before *** It is not ecxatly a problem, it is just because youare loading the same page with a new content, however, because it is a retweet it is open the same text, so I think it is ok to go back to home.
-					
+					var index = findRetweet(data[i].in_reply_to_user_id);
+					if(index != -1) {
+						str = str + '</br><a href="javascript:transitionUser('+index+')">'+data[index].user.name+'</a>';				
+					}					
 					$('#tweet').html(str);
                 });
                 $.mobile.changePage('#tweetPage');

@@ -44,8 +44,7 @@
 			<div data-role="footer">
 			</div><!-- /footer -->
 		</div><!-- /Main page -->
-        
-        
+
 		<div data-role="page" id="MainPrev">
 
 			<div data-role="header">
@@ -148,7 +147,6 @@
 
 <!-- *************** Javascript Methods ***************-->
 
-		
 		<script type="text/javascript">
 			// Load the json file in the main page
 			$.getJSON('favs.json', function(data) {
@@ -162,7 +160,6 @@
 				});
 			});
 		</script>
-
 
 
 		<script type="text/javascript">
@@ -230,6 +227,7 @@
 					//Find the user index inside the file
 					$.each(data, function (i, value) {
 						var str = '/'+value.user.name.replace(/\s+/, "").toLowerCase()+'/';
+
 						// Check if there is information about the user
 						if(str == user) {
 							userFound = true;
@@ -254,8 +252,7 @@
 					$.each(data, function (i, value) {
 						//Find the hash tag in all tweets text
 						if(hash.test(value.text)) {
-							var text = highlighting(value.text);
-							
+							var text = highlighting(value.text);							
 							$('#hashTag').children('ul').append('<div id='+i+'>' 
 								+ value.user.name+'</a></br>'+text+'</br></div>').listview('refresh');
 						}

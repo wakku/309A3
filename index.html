@@ -176,10 +176,10 @@
                     var str = '<div id="tweetDiv"><a href="javascript:transitionUser(' + i + ')" \
 					data-role="button">'+ data[i].user.name+'</a></br>'+text+'</br></div>';	
 
-					var index = findRetweet(data[i].in_reply_to_user_id);
-					alert('Valor final da funcao: ' +index);
+					var index = findRetweet(data, i);
+					alert('Valor final da funcao: ' + index);
 					if(index != -1) {
-						str = str + '</br><a href="javascript:transitionUser('+index+')">'+data[index].user.name+'</a>';				
+						str = str + '</br><a href="javascript:transitionUser(' + index + ')">' + data[index].user.name + '</a>';				
 					}					
 					$('#tweet').html(str);
                 });
@@ -189,24 +189,20 @@
         
         
         <script type="text/javascript">
-            function findRetweet(status_id) {
+            function findRetweet(data, itweet) {
 				var id = -1;
-				if(status_id == null)
-					return id;
+				alert('oi');
+				if(data[itweet].retweeted == false){
+					return -1;
+				}
 				
-				$.getJSON('favs.json', function(data) {
-					//Find the tweet id
-					$.each(data, function (i, value) {
-						if(value.user.id == status_id){
-							id = i;
-							return false;
-						}
-					});
-					alert('First ' + id);
-					return id;
-				});
-				// It is returning this one before than the one inside! ***
-				alert('Second ' + id);
+				//Find the tweet id
+				for(var i=0; i<data.length, i++) {
+					if(data[i].user.id == data[itweet].in_reply_to_user_id){
+						id = i;
+					}
+				}
+				alert('First ' + id);
 				return id;
 			}
 		</script>

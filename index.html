@@ -193,6 +193,9 @@
 						str = str + '</br><a href="javascript:transitionUser(' + index + ')">' + data[index].user.name + '</a>';				
 					}					
 					$('#tweet').html(str);
+					$.each(data[i].entities.media, function (j, value){
+						$('#tweet').append('<img id="img" src="'+data[i].entities.media[j].media_url+'"/>');
+					});
                 });
 				// Go to the page with the tweet information
                 $.mobile.changePage('#tweetPage');

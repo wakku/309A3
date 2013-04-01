@@ -24,6 +24,8 @@
 
 	<body>
 
+<!-- *************** Pages Description ***************-->
+
 		<!-- Main View page - general information -->
 		<div data-role="page" id="Main">
 
@@ -42,6 +44,8 @@
 			<div data-role="footer">
 			</div><!-- /footer -->
 		</div><!-- /Main page -->
+        
+        
 		<div data-role="page" id="MainPrev">
 
 			<div data-role="header">
@@ -59,6 +63,7 @@
 			<div data-role="footer">
 			</div><!-- /footer -->
 		</div><!-- /Main page -->
+
 		<div data-role="page" id="MainNext">
 
 			<div data-role="header">
@@ -141,10 +146,13 @@
 
 
 
+<!-- *************** Javascript Methods ***************-->
 
-
+		
 		<script type="text/javascript">
+			// Load the json file in the main page
 			$.getJSON('favs.json', function(data) {
+				// Iterate throw the entire data and insert in the main page
 				$.each(data, function (i, value) {
 					var text = highlighting(value.text);
 
@@ -159,10 +167,12 @@
 
 		<script type="text/javascript">
 			function transitionUser(i) {
+				// Load the user information in a pop-up
 				$.getJSON('favs.json', function(data) {
 					$('#usr').replaceWith('<div id="usr"><b>'+data[i].user.name+'</b></br>' + 
 					data[i].user.description + '</div>').listview('refresh');
 				});
+				// Go to the pop-up with the user information
 				$.mobile.changePage('#user');
 			}
 		</script>
@@ -171,43 +181,41 @@
         <script type="text/javascript">
             function transitionTweetPage(i) {
                 $.getJSON('favs.json', function(data) {
+					// Create the links in the tweet text
 					var text = highlighting(data[i].text);
-
+					// Create the HTML structure of the page
                     var str = '<div id="tweetDiv"><a href="javascript:transitionUser(' + i + ')" \
 					data-role="button">'+ data[i].user.name+'</a></br>'+text+'</br></div>';	
 
-					var index = findRetweet(data[i].in_reply_to_user_id);
-					alert('Valor final da funcao: ' +index);
+					// Find the retweet information to load
+					var index = findRetweet(data, i);
 					if(index != -1) {
-						str = str + '</br><a href="javascript:transitionUser('+index+')">'+data[index].user.name+'</a>';				
+						str = str + '</br><a href="javascript:transitionUser(' + index + ')">' + data[index].user.name + '</a>';				
 					}					
 					$('#tweet').html(str);
                 });
+				// Go to the page with the tweet information
                 $.mobile.changePage('#tweetPage');
             }
         </script>
         
         
         <script type="text/javascript">
-            function findRetweet(status_id) {
+            function findRetweet(data, itweet) {
 				var id = -1;
-				if(status_id == null)
+				// If it is null information it does not load
+				if(data[itweet].retweeted == false){
 					return id;
+				}
 				
-				$.getJSON('favs.json', function(data) {
-					//Find the tweet id
-					$.each(data, function (i, value) {
-						if(value.user.id == status_id){
-							id = i;
-							return false;
-						}
-					});
-					alert('First ' + id);
-					return id;
-				});
-				// It is returning this one before than the one inside! ***
-//				alert('Second ' + id);
-//				return id;
+				// Search for the user data in all the json file
+				for(var i = 0; i< data.length; i++) {
+					if(data[i].user.id == data[itweet].in_reply_to_user_id){
+						id = i;
+						return id;
+					}
+				}
+				return id;
 			}
 		</script>
 
@@ -219,12 +227,14 @@
 					//Find the user index inside the file
 					$.each(data, function (i, value) {
 						var str = '/'+value.user.name.replace(/\s+/, "").toLowerCase()+'/';
+						// Check if there is information about the user
 						if(str == user) {
 							userFound = true;
 							transitionUser(i);
 							return false;
 						}
 					});
+					// Send an alert to the user if this information is not available
 					if(userFound == false) {
 						alert("Information not available");	
 					}
@@ -237,6 +247,7 @@
         <script type="text/javascript">
             function findHashTag(hash) { 
 				$.getJSON('favs.json', function(data) {
+					// Iterate throw the tweets text searching for the tweets which cointains a specific hash tag
 					$.each(data, function (i, value) {
 						//Find the hash tag in all tweets text
 						if(hash.test(value.text)) {
@@ -247,6 +258,7 @@
 						}
 					});
                 });
+				// Clear the information in the page to load new when the page does open again
 				$('#hashTag').children('ul').empty();
 				// Do the transition to the tweet page
                 $.mobile.changePage('#hashTagPage');
@@ -256,6 +268,7 @@
         
         
         <script  type="text/javascript">
+			// It uses regular expressions to find and create a link to the citation, hash tags and links to pages, respectively
             function highlighting(text) { 
 				text = text.replace(/\s@{1}(\w+)(\s)/g, ' <a href="javascript:findUser(/$1/)">@$1</a>$2');
 

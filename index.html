@@ -121,8 +121,6 @@
 			
 			function loadMain(page){
 			
-				
-			
 				// Clean Main first
 				$('#tweets').replaceWith('<div id="tweets"><ul id="tweetList" data-role="listview" data-theme="tw"></ul></div>');
 				// Load the json file in the main page
@@ -135,7 +133,7 @@
 						if(i >= ntweets*page && i < (ntweets*page + ntweets)){
 							var text = highlighting(value.text);
 
-							$('#tweetList').append('<div id='+i+'><a href="javascript:\
+							$('#tweetList').append('<div id=tweet'+i+'><a href="javascript:\
 							transitionUser('+i+')">' + value.user.name+'</a></br><a href="javascript:\
 							transitionTweetPage('+i+')">tweet-page</a></br>'+text+'</br></br></div>');
 						}
@@ -275,15 +273,15 @@
 		// Set the action for Swipe
 			
 			// When the page load
-			$("#Main").on( "pageshow", function() {
+			$("#Main").on( "pageinit", function () {
 				loadMain(0);
 				// Navigate to next page on swipe left
 				$("#Main").on( "swipeleft", function() {
-					nextPage();
+					swipePage('left');
 				});
 				// Navigate to prev page on swipe right
 				$("#Main").on( "swiperight", function() {
-					prevPage();
+					swipePage('right');
 				});
 			
 			});
@@ -295,19 +293,21 @@
 			
 			var page = 0;
 			
-			function nextPage(){
-				if((page+1)*ntweets < qttTweets) {
-					page++;
-					loadMain(page);
-				}
+			function swipePage(direction){
 				
-			}
-			
-			function prevPage(){
-				if(page > 0) {
-					page--;
-					loadMain(page);
+				if( direction == 'left'){
+					if((page+1)*ntweets < qttTweets) {
+						page++;
+					}
 				}
+				else if( direction == 'right'){
+					if(page > 0) {
+						page--;
+					}
+				}				
+			
+			loadMain(page);
+			
 			}
 		
 		</script>

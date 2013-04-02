@@ -73,7 +73,7 @@
 				<h1>Tweet page</h1>
 			</div><!-- /header -->
 
-			<div data-role="content">
+			<div data-role="content" id="tweetPageContent">
 				<div id="tweet">
 		
 				</div>
@@ -117,7 +117,7 @@
 			// Quantity of tweets read
 			var qttTweets = 0;
 			// Quantity of tweets per page
-			var ntweets = 4;
+			var ntweets = 2;
 			
 			function loadMain(page){
 			
@@ -154,7 +154,7 @@
 				// Load the user information in a pop-up
 				$.getJSON('favs.json', function(data) {
 					$('#usr').replaceWith('<div id="usr"><b>'+data[i].user.name+'</b></br>' + 
-					data[i].user.description + '</div>').listview('refresh');
+					data[i].user.description + '</div>');
 				});
 				// Go to the pop-up with the user information
 				$.mobile.changePage('#user');
@@ -180,6 +180,8 @@
 					$.each(data[i].entities.media, function (j, value){
 						$('#tweet').append('<img id="img" src="'+data[i].entities.media[j].media_url+'"/>');
 					});
+					
+					$('tweetPageContent').trigger('create');
                 });
 				// Go to the page with the tweet information
                 $.mobile.changePage('#tweetPage');

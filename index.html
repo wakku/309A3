@@ -87,7 +87,7 @@
 
 
 		<!-- Hash Tag Page -->
-		<div data-role="page" id="hashTagPage">
+		<div data-role="dialog" id="hashTagPage">
 
 			<div data-role="header">
 				<h1>Tweets List</h1>
@@ -241,7 +241,7 @@
 							var text = highlighting(value.text);
 							
 							$('#hashTag').children('ul').append('<div id='+i+'>' 
-								+ value.user.name+'</a></br>'+text+'</br></div>').listview('refresh');
+								+ value.user.name+'</a></br>'+text+'</br></br></div>').listview('refresh');
 						}
 					});
                 });
@@ -298,6 +298,7 @@
 				if( direction == 'left'){
 					if((page+1)*ntweets < qttTweets) {
 						page++;
+						
 					}
 				}
 				else if( direction == 'right'){
@@ -307,7 +308,6 @@
 				}				
 			
 			loadMain(page);
-			
 			}
 		
 		</script>

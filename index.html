@@ -132,10 +132,9 @@
 						qttTweets = data.length;
 						// For values of i starting in j and loading max 3 tweets
 						if(i >= ntweets*page && i < (ntweets*page + ntweets)){
-							var text = highlighting(value.text);
+							var text = highlighting(value.text, false);
 
-							$('#tweetList').append('<div id='+i+'><a href="javascript:\
-							transitionUser('+i+')">' + value.user.name+'</a></br>'+text+'</br></br></div>');
+							$('#tweetList').append('<div id='+i+'><b>' + value.user.name+':</b></br>'+text+'</br></br></div>');
 							
 							// Click or tap a tweet
 							$("#tweetList").on( "tap", '#' + i, function() {
@@ -169,7 +168,7 @@
             function transitionTweetPage(i) {
                 $.getJSON('favs.json', function(data) {
 					// Create the links in the tweet text
-					var text = highlighting(data[i].text);
+					var text = highlighting(data[i].text, true);
 					// Create the HTML structure of the page
                     var str = '<div id="tweetDiv"><a href="javascript:transitionUser(' + i + ')" \
 					data-role="button">'+ data[i].user.name+'</a></br>'+text+'</br></div>';	
@@ -243,7 +242,7 @@
 					$.each(data, function (i, value) {
 						//Find the hash tag in all tweets text
 						if(hash.test(value.text)) {
-							var text = highlighting(value.text);
+							var text = highlighting(value.text, true);
 							
 							$('#hashTag').children('ul').append('<div id='+i+'>' 
 								+ value.user.name+'</a></br>'+text+'</br></br></div>').listview('refresh');
@@ -261,13 +260,24 @@
         
         <script  type="text/javascript">
 			// It uses regular expressions to find and create a link to the citation, hash tags and links to pages, respectively
-            function highlighting(text) { 
-				text = text.replace(/\s@{1}(\w+)(\s)/g, ' <a href="javascript:findUser(/$1/)">@$1</a>$2');
+            function highlighting(text, links) { 
+            	
+            	// If want links in the highlighted fileds
+            	if(links) {
+					text = text.replace(/\s@{1}(\w+)(\s)/g, ' <a href="javascript:findUser(/$1/)">@$1</a>$2');
 
-				text = text.replace(/\s#{1}(\w+)(\s)/g, ' <a href="javascript:\
-							findHashTag(/$1/)">#$1</a>$2');			
+					text = text.replace(/\s#{1}(\w+)(\s)/g, ' <a href="javascript:\
+								findHashTag(/$1/)">#$1</a>$2');			
 	
-				text = text.replace(/\s(http:\/\/)([a-zA-z0-9.\/]+)/g, ' <a href="$1$2" target="_blank">$1$2</a> ');
+					text = text.replace(/\s(http:\/\/)([a-zA-z0-9.\/]+)/g, ' <a href="$1$2" target="_blank">$1$2</a> ');
+				}
+				else{
+					text = text.replace(/\s@{1}(\w+)(\s)/g, ' <a href="#">@$1</a>$2');
+
+					text = text.replace(/\s#{1}(\w+)(\s)/g, ' <a href="#">#$1</a>$2');			
+	
+					text = text.replace(/\s(http:\/\/)([a-zA-z0-9.\/]+)/g, ' <a href="#">$1$2</a> ');
+				}
 
 				return text;
 			}

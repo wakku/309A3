@@ -29,7 +29,7 @@
 		<div data-role="page" id="Main">
 
 			<div data-role="header">
-				<h1>Tweets List</h1>
+				<h1>Favourite Tweets</h1>
 			</div><!-- /header -->
 
 			<div data-role="content">
@@ -50,7 +50,7 @@
 		<div data-role="dialog" id="user">
 
 			<div data-role="header">
-				<h1>User page</h1>
+				<h1>User Details</h1>
 			</div><!-- /header -->
 	
 			<div data-role="content">
@@ -71,7 +71,7 @@
 		<div data-role="dialog" id="tweetPage">
 
 			<div data-role="header">
-				<h1>Tweet page</h1>
+				<h1>Tweet Description</h1>
 			</div><!-- /header -->
 
 			<div data-role="content" id="tweetPageContent">
@@ -90,8 +90,8 @@
 		<!-- Hash Tag Page -->
 		<div data-role="dialog" id="hashTagPage">
 
-			<div data-role="header">
-				<h1>Tweets List</h1>
+			<div data-role="header" id="hashHeader">
+				<h1>Hashtag Page</h1>
 			</div><!-- /header -->
 
 			<div data-role="content">
@@ -238,6 +238,9 @@
         <script type="text/javascript">
             function findHashTag(hash) { 
 				$.getJSON('favs.json', function(data) {
+				
+					// Change the header for the current HashTag
+					$('#hashHeader').replaceWith('<div data-role="header" id="hashHeader"><h1>#'+hash+'</h1></div>');
 					// Iterate throw the tweets text searching for the tweets which cointains a specific hash tag
 					$.each(data, function (i, value) {
 						//Find the hash tag in all tweets text

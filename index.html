@@ -300,15 +300,15 @@
 				if( direction == 'left'){
 					if((page+1)*ntweets < qttTweets) {
 						page++;
+						loadMain(page);
 					}
 				}
 				else if( direction == 'right'){
 					if(page > 0) {
 						page--;
+						loadMain(page);
 					}
-				}				
-			
-			loadMain(page);
+				}		
 			}
 		
 		</script>

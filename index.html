@@ -41,6 +41,8 @@
 			</div><!-- /content -->
 
 			<div data-role="footer">
+				<a href="#" id="btnPrev" class="prev" data-role="button" data-icon="arrow-l" data-iconpos="notext" data-theme="d">Previous</a>
+				<a href="#" id="btnNext" class="next" data-role="button" data-icon="arrow-r" data-iconpos="notext" data-theme="d">Next</a>
 			</div><!-- /footer -->
 		</div><!-- /Main page -->
 
@@ -286,6 +288,18 @@
 				$("#Main").on( "swiperight", function() {
 					swipePage('right');
 				});
+				
+				// Navigate to next page when the "next" button is clicked
+				$( '#btnNext' ).on( "click", function() {
+					swipePage('left');
+				});
+				// Navigate to prev page when the "prev" button is clicked
+				$( '#btnPrev' ).on( "click", function() {
+					swipePage('right');
+				});
+				
+				// Disable Prev button
+				$( "#btnPrev" ).addClass( "ui-disabled" );
 			});
 		
 		</script>
@@ -301,12 +315,24 @@
 					if((page+1)*ntweets < qttTweets) {
 						page++;
 						loadMain(page);
+						// Enable Prev Button
+						$( "#btnPrev" ).removeClass( "ui-disabled" );
+						// Check if Next button needs to be disabled
+						if((page+1)*ntweets >= qttTweets) {
+							$( "#btnNext" ).addClass( "ui-disabled" );
+						}
 					}
 				}
 				else if( direction == 'right'){
 					if(page > 0) {
 						page--;
 						loadMain(page);
+						// Enable Next Button
+						$( "#btnNext" ).removeClass( "ui-disabled" );
+						// Check if Prev button needs to be disabled
+						if(page <= 0) {
+							$( "#btnPrev" ).addClass( "ui-disabled" );
+						}
 					}
 				}		
 			}

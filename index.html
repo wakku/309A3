@@ -49,7 +49,7 @@
 		<!-- User View page -->
 		<div data-role="dialog" id="user">
 
-			<div data-role="header">
+			<div data-role="header" id="userHeader">
 				<h1>User Details</h1>
 			</div><!-- /header -->
 	
@@ -155,7 +155,10 @@
 			function transitionUser(i) {
 				// Load the user information in a pop-up
 				$.getJSON('favs.json', function(data) {
-					$('#usr').replaceWith('<div id="usr"><b>'+data[i].user.name+'</b></br>' + 
+				
+					$('#userHeader').replaceWith('<div data-role="header" id="userHeader"><h1>'+data[i].user.name+'</h1></div>');
+				
+					$('#usr').replaceWith('<div id="usr"><b>User Description: </b></br>' + 
 					data[i].user.description + '</div>');
 				});
 				// Go to the pop-up with the user information

@@ -156,6 +156,7 @@
 				// Load the user information in a pop-up
 				$.getJSON('favs.json', function(data) {
 				
+					// Update the header
 					$('#userHeader').replaceWith('<div data-role="header" id="userHeader"><h1>'+data[i].user.name+'</h1></div>');
 				
 					$('#usr').replaceWith('<div id="usr"><b>User Description: </b></br>' + 

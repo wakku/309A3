@@ -1,0 +1,170 @@
+commit 2986d9ef6ea7b7b89910d12fc8b60fd8d8e155e4
+Author: Gorodscy <fefow@me.com>
+Date:   Tue Apr 2 15:38:00 2013 -0400
+
+    Add more comments
+
+commit 8eed60f49464dd63760b76d5ddf35fb4140d60d0
+Author: Gorodscy <fefow@me.com>
+Date:   Tue Apr 2 15:32:46 2013 -0400
+
+    User Headers updated
+
+commit c25931794f4ea724664a2a147494dcc062398652
+Author: Gorodscy <fefow@me.com>
+Date:   Tue Apr 2 15:21:35 2013 -0400
+
+    Headers updated
+
+commit c249d6cb0c32f5ea7688bc5f27c800af68769aa6
+Author: Gorodscy <fefow@me.com>
+Date:   Tue Apr 2 14:50:52 2013 -0400
+
+    Links are now clickable only in tweet-page
+
+commit a96b39cd4fee0736cbd6de72c12cc8d57d3890ce
+Author: Gorodscy <fefow@me.com>
+Date:   Tue Apr 2 13:51:17 2013 -0400
+
+    Added button prev and next
+
+commit 32eb2476bc955e566e74aeaf906613ddb56ed0a4
+Author: Gorodscy <fefow@me.com>
+Date:   Tue Apr 2 13:26:29 2013 -0400
+
+    tweet-page button changged into tap action
+
+commit 3b45b98b740b398eeb43379b488ff80ac767edda
+Author: Gorodscy <fefow@me.com>
+Date:   Tue Apr 2 12:38:04 2013 -0400
+
+    Layout a little upgraded. Some </br> inserted
+
+commit 150d6754dc6940c64aa861300f003ca0451cc8a6
+Author: Gorodscy <fefow@me.com>
+Date:   Tue Apr 2 12:04:42 2013 -0400
+
+    Pagination works when returning from another page [Bug Fixed]
+
+commit 8a4b7ec26b3b95c1f396f9e52b9ff90d8c555b32
+Author: Gorodscy <fefow@me.com>
+Date:   Tue Apr 2 05:15:33 2013 -0400
+
+    trigger creation
+
+commit 4717eae68e5e347b9af5ac3fb249fd41a5507e81
+Author: Gorodscy <fefow@me.com>
+Date:   Tue Apr 2 05:06:25 2013 -0400
+
+    Pagination DONE! [No beautiful transition]
+
+commit 6a22232f7e10a899ac9e063c3dd50e482f0a12af
+Author: lfv.vercosa <lfv.vercosa@gmail.com>
+Date:   Mon Apr 1 03:25:31 2013 -0400
+
+    showing tweets images in tweet pop-up
+
+commit 9dca77259b17f6b2e1cb5071ae210856a6142c82
+Merge: ba9325c a215d68
+Author: Vanessa Lima <vanny.a.lima@gmail.com>
+Date:   Mon Apr 1 02:21:45 2013 -0300
+
+    Loading user retweet information and adding comments
+
+commit ba9325c06745535a94b2294b42cb0d112c518769
+Author: Vanessa Lima <vanny.a.lima@gmail.com>
+Date:   Mon Apr 1 01:42:09 2013 -0300
+
+    Testing retweet
+
+commit a215d68392ac8382061b39ac2fb9636a854e79c3
+Author: Gorodscy <fefow@me.com>
+Date:   Sun Mar 31 20:01:53 2013 -0400
+
+    tweetPage improved, but still not working properly
+
+commit 275e9994fdb45d2bc3b73ddfad68156fdb38b073
+Merge: 93d3f82 b13bfd7
+Author: Vanessa Lima <vanny.a.lima@gmail.com>
+Date:   Sun Mar 31 20:11:39 2013 -0300
+
+    Testing retweet
+
+commit 93d3f8218de090d583beaed828a797c5f925af6f
+Author: Vanessa Lima <vanny.a.lima@gmail.com>
+Date:   Sun Mar 31 19:57:49 2013 -0300
+
+    Testing retweet
+
+commit 5570ed8fce65fa168740c98ddc5c7c48877f7f93
+Author: Vanessa Lima <vanny.a.lima@gmail.com>
+Date:   Sun Mar 31 19:57:12 2013 -0300
+
+    Adding comments
+
+commit b13bfd7eb50cca7a15b9c64d1c4a2000c4834fb7
+Author: Gorodscy <fefow@me.com>
+Date:   Sun Mar 31 18:55:30 2013 -0400
+
+    beginning to fix the errors
+
+commit 6ea64d229f97b097992526b8f7e63a122936e99f
+Author: Gorodscy <fefow@me.com>
+Date:   Sun Mar 31 18:08:55 2013 -0400
+
+    Line wraped [better reading]
+
+commit 14140610a68bfe904349bc829214e55a4ff90475
+Merge: 70c7daa df50803
+Author: Vanessa Lima <vanny.a.lima@gmail.com>
+Date:   Sun Mar 31 17:40:11 2013 -0300
+
+    Function to do the highlighting
+
+commit 70c7daa379b3928feec1e9767ce19fd82af88572
+Author: Vanessa Lima <vanny.a.lima@gmail.com>
+Date:   Sun Mar 31 17:26:04 2013 -0300
+
+    Create a function to highlight the citations and links
+
+commit df5080380e64c77cd8369bad977f86c5602366ab
+Author: Gorodscy <fefow@me.com>
+Date:   Sun Mar 31 15:43:42 2013 -0400
+
+    Pagination coming back
+
+commit ae80858a5e9792e4ebef52e3c36e6afbbeef160a
+Author: Gorodscy <fefow@me.com>
+Date:   Sun Mar 31 15:35:57 2013 -0400
+
+    Swipe Implemented. Pagination still in the beginning
+
+commit fdef3342fcd863d75d998a825d51837c70c5c64d
+Author: Gorodscy <fefow@me.com>
+Date:   Sun Mar 31 14:59:16 2013 -0400
+
+    Page updated
+
+commit 748321c45e49f5acf6a4973d3af76b4dce7a4e1f
+Author: Vanessa Lima <vanny.a.lima@gmail.com>
+Date:   Sun Mar 31 04:10:15 2013 -0300
+
+    Hash thag Page working, just missing the css file
+
+commit c3dd26e53a0782ea0eab2ce903a79f595a72f470
+Author: Vanessa Lima <vanny.a.lima@gmail.com>
+Date:   Sat Mar 30 19:48:05 2013 -0300
+
+    Highlighting the #tag @citation and links, and also working to open the links and the @citation if the user information is available
+
+commit e0dcc507587e199c4fb73de13356fe4320b0a321
+Author: Vanessa Lima <vanny.a.lima@gmail.com>
+Date:   Fri Mar 29 17:31:32 2013 -0300
+
+    Opening Tweet Page
+
+commit 3d12b537ae6f9ac63aafbe2cfdb972e69a5a5040
+Author: Gorodscy <fefow@me.com>
+Date:   Fri Mar 29 15:16:52 2013 -0400
+
+    All files from vanessalima repo

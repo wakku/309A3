@@ -135,6 +135,11 @@
 					$.each(data, function (i, value) {
 						
 						qttTweets = data.length;
+						
+						// Disable next button of necessary
+						if( qttTweets <= ntweets)
+							$( "#btnNext" ).addClass( "ui-disabled" );
+						
 						// For values of i starting in j and loading max 3 tweets
 						if(i >= ntweets*page && i < (ntweets*page + ntweets)){
 							var text = value.text; // All black (no links in the main page) //highlighting(value.text, false);

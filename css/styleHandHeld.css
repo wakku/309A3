@@ -9,7 +9,9 @@ a {
 .ui-page {
 	background: #c2dfee;
 	margin: 0px;
-	background-color: #fff;
+	background-image: url(../images/background.png);
+	background-repeat: repeat-x;
+	background-color: #c2dfee;
 	padding: 0px;
 }
 .ui-bar {

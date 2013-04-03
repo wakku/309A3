@@ -1,3 +1,9 @@
+commit fbf679c9a82021d347cabb785129aad4d4cbb714
+Author: Gorodscy <fefow@me.com>
+Date:   Wed Apr 3 00:21:15 2013 -0400
+
+    log update
+
 commit 95dd4a3502a2b40704213d53c42bf52635bfed0a
 Merge: 5a96872 dc2e39d
 Author: Gorodscy <fefow@me.com>

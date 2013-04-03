@@ -140,7 +140,7 @@
 						if(i >= ntweets*page && i < (ntweets*page + ntweets)){
 							var text = value.text; // All black (no links in the main page) //highlighting(value.text, false);
 
-							$('#tweetList').append('<div id='+i+'><b>' + value.user.name+':</b></br>'+text+'</br></br></div>');
+							$('#tweetList').append('<div id='+i+' class="tweet"><span class="title" title="Get more info about this user"><b>' + value.user.name+'</b>:</span></br><span class="description" title="View more">'+text+'</span></br></br></div>');
 							
 							// Click or tap a tweet
 							$("#tweetList").on( "tap", '#' + i, function() {

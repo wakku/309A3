@@ -1,8 +1,45 @@
-commit C98649ef6e38dh6j10d12fc8b60fd8d8e155e4
-Author: Ystallonne <ystallonne@gmail.com>
-Date:   Tue Apr 2 23:38:00 2013 -0400
+commit 95dd4a3502a2b40704213d53c42bf52635bfed0a
+Merge: 5a96872 dc2e39d
+Author: Gorodscy <fefow@me.com>
+Date:   Wed Apr 3 00:20:19 2013 -0400
 
-    CSS file was added
+    Merge branch 'master' of https://github.com/wakku/309A3
+
+commit 5a96872a42606ea80bd41ada66f9749aa5373b0b
+Author: Gorodscy <fefow@me.com>
+Date:   Wed Apr 3 00:19:53 2013 -0400
+
+    Ystallonne part
+
+commit dc2e39de6d5e52f0da1f74dc3bbba48ec4479ed9
+Author: lfv.vercosa <lfv.vercosa@gmail.com>
+Date:   Tue Apr 2 23:53:31 2013 -0400
+
+    added ystallonne future commit
+
+commit 491b5287dc7eb4f506205c5d5642fec9778f456d
+Author: Gorodscy <fefow@me.com>
+Date:   Tue Apr 2 23:41:49 2013 -0400
+
+    3 tweets for mobile and 20 for others
+
+commit 9acb6ac87a1b18ea25696331db6c97d085b1ce72
+Author: Gorodscy <fefow@me.com>
+Date:   Tue Apr 2 23:37:59 2013 -0400
+
+    HCI improved. Links in main page were misleading
+
+commit e68b748746b9fefd2d8d2ee325902ddbc1e93fcc
+Author: Gorodscy <fefow@me.com>
+Date:   Tue Apr 2 23:32:20 2013 -0400
+
+    log.txt added
+
+commit 35928d10ba8c110f9e2cf98b95a87bb4201c58b5
+Author: lfv.vercosa <lfv.vercosa@gmail.com>
+Date:   Tue Apr 2 21:41:28 2013 -0400
+
+    adjusting tweets image size
 
 commit 2986d9ef6ea7b7b89910d12fc8b60fd8d8e155e4
 Author: Gorodscy <fefow@me.com>

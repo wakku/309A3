@@ -118,7 +118,10 @@
 			// Quantity of tweets read
 			var qttTweets = 0;
 			// Quantity of tweets per page
-			var ntweets = 3;
+			if( /Android|webOS|iPhone|iPad|iPod|BlackBerry/i.test(navigator.userAgent) ) {
+			 	var ntweets = 3;
+			}
+			var ntweets = 20;
 			
 			function loadMain(page){
 			

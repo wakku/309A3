@@ -29,7 +29,7 @@
 		<div data-role="page" id="Main">
 
 			<div data-role="header">
-				<h1>Tweets List</h1>
+				<h1>Favourite Tweets</h1>
 			</div><!-- /header -->
 
 			<div data-role="content">
@@ -49,8 +49,8 @@
 		<!-- User View page -->
 		<div data-role="dialog" id="user">
 
-			<div data-role="header">
-				<h1>User page</h1>
+			<div data-role="header" id="userHeader">
+				<h1>User Details</h1>
 			</div><!-- /header -->
 	
 			<div data-role="content">
@@ -71,7 +71,7 @@
 		<div data-role="dialog" id="tweetPage">
 
 			<div data-role="header">
-				<h1>Tweet page</h1>
+				<h1>Tweet Description</h1>
 			</div><!-- /header -->
 
 			<div data-role="content" id="tweetPageContent">
@@ -90,8 +90,8 @@
 		<!-- Hash Tag Page -->
 		<div data-role="dialog" id="hashTagPage">
 
-			<div data-role="header">
-				<h1>Tweets List</h1>
+			<div data-role="header" id="hashHeader">
+				<h1>Hashtag Page</h1>
 			</div><!-- /header -->
 
 			<div data-role="content">
@@ -118,7 +118,10 @@
 			// Quantity of tweets read
 			var qttTweets = 0;
 			// Quantity of tweets per page
-			var ntweets = 3;
+			if( /Android|webOS|iPhone|iPad|iPod|BlackBerry/i.test(navigator.userAgent) ) {
+			 	var ntweets = 3;
+			}
+			var ntweets = 20;
 			
 			function loadMain(page){
 			
@@ -132,10 +135,9 @@
 						qttTweets = data.length;
 						// For values of i starting in j and loading max 3 tweets
 						if(i >= ntweets*page && i < (ntweets*page + ntweets)){
-							var text = highlighting(value.text);
+							var text = value.text; // All black (no links in the main page) //highlighting(value.text, false);
 
-							$('#tweetList').append('<div id='+i+'><a href="javascript:\
-							transitionUser('+i+')">' + value.user.name+'</a></br>'+text+'</br></br></div>');
+							$('#tweetList').append('<div id='+i+'><b>' + value.user.name+':</b></br>'+text+'</br></br></div>');
 							
 							// Click or tap a tweet
 							$("#tweetList").on( "tap", '#' + i, function() {
@@ -156,7 +158,11 @@
 			function transitionUser(i) {
 				// Load the user information in a pop-up
 				$.getJSON('favs.json', function(data) {
-					$('#usr').replaceWith('<div id="usr"><b>'+data[i].user.name+'</b></br>' + 
+				
+					// Update the header
+					$('#userHeader').replaceWith('<div data-role="header" id="userHeader"><h1>'+data[i].user.name+'</h1></div>');
+				
+					$('#usr').replaceWith('<div id="usr"><b>User Description: </b></br>' + 
 					data[i].user.description + '</div>');
 				});
 				// Go to the pop-up with the user information
@@ -169,7 +175,7 @@
             function transitionTweetPage(i) {
                 $.getJSON('favs.json', function(data) {
 					// Create the links in the tweet text
-					var text = highlighting(data[i].text);
+					var text = highlighting(data[i].text, true);
 					// Create the HTML structure of the page
                     var str = '<div id="tweetDiv"><a href="javascript:transitionUser(' + i + ')" \
 					data-role="button">'+ data[i].user.name+'</a></br>'+text+'</br></div>';	
@@ -181,7 +187,7 @@
 					}					
 					$('#tweet').html(str);
 					$.each(data[i].entities.media, function (j, value){
-						$('#tweet').append('<img id="img" src="'+data[i].entities.media[j].media_url+'"/>');
+						$('#tweet').append('</br><img id="img" src="'+data[i].entities.media[j].media_url+'" width="250" height="250"/>');
 					});
 					
 					$('tweetPageContent').trigger('create');
@@ -239,11 +245,14 @@
         <script type="text/javascript">
             function findHashTag(hash) { 
 				$.getJSON('favs.json', function(data) {
+				
+					// Change the header for the current HashTag
+					$('#hashHeader').replaceWith('<div data-role="header" id="hashHeader"><h1>#'+hash+'</h1></div>');
 					// Iterate throw the tweets text searching for the tweets which cointains a specific hash tag
 					$.each(data, function (i, value) {
 						//Find the hash tag in all tweets text
 						if(hash.test(value.text)) {
-							var text = highlighting(value.text);
+							var text = highlighting(value.text, true);
 							
 							$('#hashTag').children('ul').append('<div id='+i+'>' 
 								+ value.user.name+'</a></br>'+text+'</br></br></div>').listview('refresh');
@@ -261,13 +270,24 @@
         
         <script  type="text/javascript">
 			// It uses regular expressions to find and create a link to the citation, hash tags and links to pages, respectively
-            function highlighting(text) { 
-				text = text.replace(/\s@{1}(\w+)(\s)/g, ' <a href="javascript:findUser(/$1/)">@$1</a>$2');
+            function highlighting(text, links) { 
+            	
+            	// If want links in the highlighted fileds
+            	if(links) {
+					text = text.replace(/\s@{1}(\w+)(\s)/g, ' <a href="javascript:findUser(/$1/)">@$1</a>$2');
 
-				text = text.replace(/\s#{1}(\w+)(\s)/g, ' <a href="javascript:\
-							findHashTag(/$1/)">#$1</a>$2');			
+					text = text.replace(/\s#{1}(\w+)(\s)/g, ' <a href="javascript:\
+								findHashTag(/$1/)">#$1</a>$2');			
 	
-				text = text.replace(/\s(http:\/\/)([a-zA-z0-9.\/]+)/g, ' <a href="$1$2" target="_blank">$1$2</a> ');
+					text = text.replace(/\s(http:\/\/)([a-zA-z0-9.\/]+)/g, ' <a href="$1$2" target="_blank">$1$2</a> ');
+				}
+				else{
+					text = text.replace(/\s@{1}(\w+)(\s)/g, ' <a href="#">@$1</a>$2');
+
+					text = text.replace(/\s#{1}(\w+)(\s)/g, ' <a href="#">#$1</a>$2');			
+	
+					text = text.replace(/\s(http:\/\/)([a-zA-z0-9.\/]+)/g, ' <a href="#">$1$2</a> ');
+				}
 
 				return text;
 			}

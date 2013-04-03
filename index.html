@@ -132,7 +132,7 @@
 						qttTweets = data.length;
 						// For values of i starting in j and loading max 3 tweets
 						if(i >= ntweets*page && i < (ntweets*page + ntweets)){
-							var text = highlighting(value.text, false);
+							var text = value.text; // All black (no links in the main page) //highlighting(value.text, false);
 
 							$('#tweetList').append('<div id='+i+'><b>' + value.user.name+':</b></br>'+text+'</br></br></div>');
 							
